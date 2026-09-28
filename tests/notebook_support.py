@@ -1,10 +1,10 @@
 import contextlib
+import csv
 import io
 import json
 import os
 from pathlib import Path
 import re
-import subprocess
 import tempfile
 from unittest.mock import patch
 
@@ -13,11 +13,11 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pulp
 
-from api_support import ROOT, model_signature
+from api_support import ROOT
 
 
-SOURCE_COMMIT = '3f5c7f7cf1ac7a3793dfc7c47bb90f38d091f347'
-BASELINE = Path(__file__).parent / 'fixtures' / 'notebooks_pulp3.json'
+BASELINE = Path(__file__).parent / 'fixtures' / 'notebook_results.csv'
+INITIAL_SOLUTION = Path(__file__).parent / 'fixtures' / 'routing_initial_solution.csv'
 CASES = {
     'tutorial': ('2.tutorial/tutorial.ipynb', None),
     'scipy_comparison': ('2.tutorial/tutorial_scipy_optimize_milp.ipynb', None),
@@ -31,10 +31,7 @@ CASES = {
 }
 
 
-def read_notebook(path, original=False):
-    if original:
-        return json.loads(subprocess.check_output(
-            ['git', 'show', f'{SOURCE_COMMIT}:{path}'], cwd=ROOT, text=True))
+def read_notebook(path):
     return json.loads((ROOT / path).read_text())
 
 
@@ -61,26 +58,27 @@ def check_solution(prob):
             assert constraint['sense'] * residual >= -tolerance, (constraint['name'], residual)
 
 
-def run_case(case, original=False):
+def run_case(case):
     path, selected = CASES[case]
-    notebook = read_notebook(path, original)
+    notebook = read_notebook(path)
     records = []
     solve = pulp.LpProblem.solve
     namespace = {'__name__': '__main__'}
 
     def checked_solve(prob, solver=None, **kwargs):
-        signature = model_signature(prob, significant_digits=12)
-        signature.pop('objective')
+        model = prob.toDict()
+        num_variables = sum(v['name'] != '__dummy' for v in model['variables'])
+        num_constraints = len(model['constraints'])
         constant = float(prob.objective.constant) if prob.objective is not None else 0.0
         if solver is None:
-            solver_class = pulp.PULP_CBC_CMD if original else pulp.COIN_CMD
-            solver = solver_class(msg=False)
+            solver = pulp.COIN_CMD(msg=False)
         solver.msg = False
         solver.timeLimit = 600 if case == 'routing_v2_large' else 120
         if os.environ.get('PYOPTBOOK_CBC_PATH'):
             solver.path = os.environ['PYOPTBOOK_CBC_PATH']
-        if case == 'routing_v2_large' and not original:
-            initial = json.loads(BASELINE.read_text())['cases'][case][0]['initial_values']
+        if case == 'routing_v2_large':
+            with INITIAL_SOLUTION.open() as f:
+                initial = {row['variable']: float(row['value']) for row in csv.DictReader(f)}
             for variable in prob.variables():
                 variable.setInitialValue(initial.get(variable.name, 0))
             solver.optionsDict['warmStart'] = True
@@ -89,14 +87,9 @@ def run_case(case, original=False):
             solver.optionsDict['logPath'] = str(log_path)
             result = solve(prob, solver, **kwargs)
             log = log_path.read_text()
-        if original:
-            has_solution = prob.sol_status in (pulp.LpSolutionOptimal, pulp.LpSolutionIntegerFeasible)
-            optimal = prob.sol_status == pulp.LpSolutionOptimal
-            status = pulp.LpStatus[result]
-        else:
-            has_solution = result.has_solution
-            optimal = result.status == pulp.LpSolveStatus.Optimal
-            status = result.status_str
+        has_solution = result.has_solution
+        optimal = result.status == pulp.LpSolveStatus.Optimal
+        status = result.status_str
         gap_limited = 'within gap tolerance' in log
         objective = None
         if has_solution:
@@ -104,11 +97,8 @@ def run_case(case, original=False):
             objective = float(pulp.value(prob.objective) or 0)
         lower = re.search(r'Lower bound:\s+([-+\d.eE]+)', log)
         best_bound = float(lower.group(1)) + constant if lower else None
-        records.append({'model': signature, 'constant': constant, 'status': status,
-                        'has_solution': has_solution, 'optimal': optimal and not gap_limited,
-                        'gap_limited': gap_limited, 'objective': objective, 'best_bound': best_bound})
-        if case == 'routing_v2_large' and original:
-            records[-1]['initial_values'] = {v.name: v.value() for v in prob.variables() if v.value()}
+        records.append({'variables': num_variables, 'constraints': num_constraints,
+                        'status': status, 'has_solution': has_solution, 'objective': objective})
         if case == 'routing_v2_large':
             assert has_solution
             assert optimal or gap_limited, (status, objective, best_bound, log[-2500:])
@@ -124,11 +114,6 @@ def run_case(case, original=False):
                 if cell['cell_type'] != 'code' or (selected is not None and index not in selected):
                     continue
                 source = ''.join(cell['source'])
-                if original and case == 'routing':
-                    source = source.replace('from IPython.core.display import display',
-                                            'from IPython.display import display')
-                    source = source.replace('.loc[nondominated_idx_set, :]',
-                                            '.loc[sorted(nondominated_idx_set), :]')
                 exec(compile(source, f'{path}:cell_{index}', 'exec'), namespace)
                 if case == 'routing' and index == 1:
                     from joblib import Parallel

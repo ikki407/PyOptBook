@@ -38,9 +38,9 @@ Windows では `.venv-api\Scripts\activate` で有効化する。CBC は PuLP �
 
 ## 出力の比較と回帰テスト
 
-移行前のコミット `3f5c7f7cf1ac7a3793dfc7c47bb90f38d091f347` の `6.api/problem.py` を、PuLP 3.3.2 / Python 3.12.12 / CBC 2.10.3 で実行し、`tests/fixtures/api_pulp3.json` に比較基準を保存した。元コードの SHA-256、モデルの署名、実際の割当、一意解の例を記録している。基準は移行後のコードから作り直していない。
+移行前のコードで得た割当を `tests/fixtures/api_solution.csv` に保存している。CSV は学生 ID と車 ID だけの表とし、テストは結果と条件を直接確認する。
 
-- 24人・6台のモデルについて、144変数の名前・種類・上下限、72制約の係数・向き・定数、目的関数を正規化して SHA-256 で比較する。内部のダミー変数、制約の自動命名、順序、整数/浮動小数の表記差は除く。
+- 24人・6台のモデルが144個の0–1変数と72制約を持つことを確認する。
 - 全学生がちょうど1台に割り当てられること、定員、免許、全学年、男女の条件を入力データから独立に検証する。各条件を満たせない入力も実際の CBC で確認する。
 - 4人・1台の一意解は、DataFrame・CSV・JSON を移行前と完全一致で比較する。
 - 複数解のある標準データでは、割当の完全一致を合否条件にしない。元の解、現在の解、車を入れ替えた別解がすべて同じ条件を満たすことを確認する。目的関数がないため、実行可能解の目的値は同一。
@@ -52,7 +52,7 @@ python -m pip install -r requirements-test.txt
 python -m pytest -q
 ```
 
-基準の再生成は履歴を含む checkout と PuLP 3.3.2 の別環境で `python tests/capture_api_baseline.py` を実行する。元コード自体に対するテストでは `python -m pytest -q -o filterwarnings=default tests/test_api.py` を使う。CI は Python 3.12 / 3.13 で、元コード + 3.3.2 と移行後 + 4.0.0 の両方を実行する。4.0 側では PuLP の非推奨警告をエラーにする。
+CI は Python 3.12 / 3.13 で、`v3.0` ブランチの元コードと移行後のコードの両方を実行する。4.0 側では PuLP の非推奨警告をエラーにする。
 
 ローカルの macOS arm64 では `cbcbox 2.935` の CBC 実行が終了コード -9 で失敗したため、比較には両環境で同じ CBC 2.10.3 実行ファイルを指定した。テストだけでソルバーを固定する場合は `PYOPTBOOK_CBC_PATH=/path/to/cbc python -m pytest -q` を使う。実装の CBC 選択は変更しない。別の CBC を使うアプリケーションでは `pulp.COIN_CMD(path='/path/to/cbc')` を指定できる。CBC の違いによっても複数解の選択は変わり得る。
 

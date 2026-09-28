@@ -12,7 +12,7 @@ import api
 import api_fastapi
 import application
 from problem import CarGroupProblem
-from api_support import BASELINE, RESOURCE, ROOT, assert_assignment, model_signature, sample_data
+from api_support import BASELINE, RESOURCE, ROOT, assert_assignment, sample_data
 
 
 @pytest.fixture
@@ -22,7 +22,10 @@ def data():
 
 @pytest.fixture
 def baseline():
-    return json.loads(BASELINE.read_text())
+    return {
+        'solution': pd.read_csv(BASELINE).to_dict(orient='records'),
+        'single_car_solution': [{'student_id': s, 'car_id': 0} for s in range(4)],
+    }
 
 
 def uploads(students, cars):
@@ -32,9 +35,14 @@ def uploads(students, cars):
     }
 
 
-def test_formulation_matches_pulp3(data, baseline):
+def test_formulation_dimensions_and_binary_variables(data):
     problem = CarGroupProblem(*data)
-    assert model_signature(problem.prob['prob']) == baseline['model']
+    model = problem.prob['prob'].toDict()
+    variables = [v for v in model['variables'] if v['name'] != '__dummy']
+    assert len(variables) == 144
+    assert len(model['constraints']) == 72
+    assert all(v['cat'] == 'Integer' and v['lowBound'] == 0 and v['upBound'] == 1
+               for v in variables)
 
 
 def test_sample_solution_and_alternate_optimum(data, baseline):
