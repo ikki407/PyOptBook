@@ -83,6 +83,7 @@ def run_case(case):
                 variable.setInitialValue(initial.get(variable.name, 0))
             solver.optionsDict['warmStart'] = True
             solver.keepFiles = True
+            solver.options.append('preprocess off')
         with tempfile.TemporaryDirectory() as tmp:
             log_path = Path(tmp) / 'cbc.log'
             solver.optionsDict['logPath'] = str(log_path)
