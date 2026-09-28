@@ -29,11 +29,11 @@ def test_notebook_results_match_expected_values(case):
             assert new['status'] == 'Infeasible'
 
 
-@pytest.mark.parametrize('path', sorted(ROOT.glob('*/*.ipynb')), ids=lambda p: str(p.relative_to(ROOT)))
+@pytest.mark.parametrize('path', sorted(ROOT.glob('*/*.ipynb')), ids=lambda p: p.relative_to(ROOT).as_posix())
 def test_notebooks_are_valid_and_have_no_removed_pulp_calls(path):
     notebook = nbformat.read(path, as_version=4)
     nbformat.validate(notebook)
-    executed = str(path.relative_to(ROOT)) in {p for p, _ in CASES.values()}
+    executed = path.relative_to(ROOT).as_posix() in {p for p, _ in CASES.values()}
     if executed:
         assert any(cell.get('outputs') for cell in notebook.cells)
     for cell in notebook.cells:

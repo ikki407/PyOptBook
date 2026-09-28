@@ -119,7 +119,7 @@ def test_flask_csv_contract(data, baseline, unique):
 
 @pytest.mark.parametrize('unique', [False, True])
 def test_fastapi_json_contract(baseline, unique):
-    payload = json.loads((RESOURCE / 'request_fastapi.json').read_text())
+    payload = json.loads((RESOURCE / 'request_fastapi.json').read_text(encoding='utf-8'))
     if unique:
         payload['students'] = payload['students'][:4]
         payload['cars'] = payload['cars'][:1]
@@ -136,7 +136,7 @@ def test_fastapi_json_contract(baseline, unique):
 
 
 def test_fastapi_invalid_request():
-    payload = json.loads((RESOURCE / 'wrong_request_fastapi.json').read_text())
+    payload = json.loads((RESOURCE / 'wrong_request_fastapi.json').read_text(encoding='utf-8'))
     with TestClient(api_fastapi.app) as client:
         assert client.post('/api', json=payload).status_code == 422
 
@@ -162,7 +162,7 @@ def test_web_empty_upload_redirects(data):
 
 
 def test_streamlit_csv_helpers(data, baseline):
-    source = ast.parse((ROOT / '6.api' / 'application_streamlit.py').read_text())
+    source = ast.parse((ROOT / '6.api' / 'application_streamlit.py').read_text(encoding='utf-8'))
     functions = ast.Module(body=[node for node in source.body if isinstance(node, ast.FunctionDef)],
                            type_ignores=[])
     namespace = {'pd': pd}
