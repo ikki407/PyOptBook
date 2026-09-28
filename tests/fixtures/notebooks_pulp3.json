@@ -1,0 +1,990 @@
+{
+  "source_commit": "3f5c7f7cf1ac7a3793dfc7c47bb90f38d091f347",
+  "pulp": "3.3.2",
+  "python": "3.12.12",
+  "solver": "CBC 2.10.3",
+  "cases": {
+    "tutorial": [
+      {
+        "model": {
+          "sha256": "5acd72924832baee457a566d7a42079181e190258fc349b745daae8f94c8226a",
+          "variables": 2,
+          "constraints": 2
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "5acd72924832baee457a566d7a42079181e190258fc349b745daae8f94c8226a",
+          "variables": 2,
+          "constraints": 2
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "2d7db9a88c3963c5687b9377a1d59eab13945eb5287a601a613745f407fc773a",
+          "variables": 2,
+          "constraints": 4
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 26.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "2d7db9a88c3963c5687b9377a1d59eab13945eb5287a601a613745f407fc773a",
+          "variables": 2,
+          "constraints": 4
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 26.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "c7e736aac46a427869069e35e40e4a840dd157d33b83283157112aaf9222a894",
+          "variables": 4,
+          "constraints": 7
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 80.42857099999999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "c7e736aac46a427869069e35e40e4a840dd157d33b83283157112aaf9222a894",
+          "variables": 4,
+          "constraints": 7
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 80.42857099999999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "54cd29f919cd04ba57dd29dadf34037047ef4f934942530ec88e4ed3c944c51e",
+          "variables": 4,
+          "constraints": 7
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 79.0,
+        "best_bound": null
+      }
+    ],
+    "scipy_comparison": [
+      {
+        "model": {
+          "sha256": "2d7db9a88c3963c5687b9377a1d59eab13945eb5287a601a613745f407fc773a",
+          "variables": 2,
+          "constraints": 4
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 26.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "c7e736aac46a427869069e35e40e4a840dd157d33b83283157112aaf9222a894",
+          "variables": 4,
+          "constraints": 7
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 80.42857099999999,
+        "best_bound": null
+      }
+    ],
+    "school": [
+      {
+        "model": {
+          "sha256": "9ed941696504207196a09064c07ae32c575eea016370aca82f611981be09d19e",
+          "variables": 2544,
+          "constraints": 406
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "298fab4cbbb0f9a8c9a2dc7b78309f1877ac8c77ba761a285520eb793ecfad40",
+          "variables": 2544,
+          "constraints": 406
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "9ddb6cd01f3a39b83709fc2327963447f7ebeb0030859ca1740358d2e852120c",
+          "variables": 2544,
+          "constraints": 406
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 298.0,
+        "best_bound": null
+      }
+    ],
+    "coupon": [
+      {
+        "model": {
+          "sha256": "05182d97cdfad23382ae8fbc3d0036088f253bd3857ae4351f378a93600dd4ad",
+          "variables": 15000,
+          "constraints": 5049
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 326.0900000000025,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "18b5f5b0007e6a0ef9decd8bbe0fe9a3e0046ccc5d55b99b788cc1aa8156fe51",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 326.09509792000006,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "7ef016928a37da6e6ae2228de82dd4f93079ae79a1c17087d88d57a7caf35c1a",
+          "variables": 49,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.13125943,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "5f07b0aba6131d392c79c276b4a0e0e559a8ec533722709859a689bd176db7cb",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 300.5841098200001,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "9da6b8c4e8c9970445b985fc368f341bf62261aaf3347c913f5f4ab593d05d7a",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 229.00000000000003,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "003f56f1bf3d5c4c9cbca4005f2cc15f960d9cb9fbb92feb14aeb1d69bd7b52e",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 273.05714272000006,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "45ca4906a2a2752640e704dd9f939b8ec7e7231ee4391ce57aabb743a7ad6a14",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 311.88235312000006,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "6d134c26a403acb5444d094278319582f0b43e53028ea0ecbf22e7ab5dcd2d38",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 349.0608695800001,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "d3b11471109ce1257be611777aef461b7db771712a47c7ff79ee0e68fc24bfd3",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 385.76153776,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "1fc0ef3ce200576f0a4a2d17130c1e27d6e424795383318b6a3bef0816c8ff07",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 422.3,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "e4c84edbc80ee7029096bf1f2a6f61b5a4ad354bcb31aaa58a60d532d76fd57c",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 458.83846223999996,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "891b2f0627f20d2971852f032fd59d8bd805cc3644afd38b67837fc6bc618c96",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 495.247059,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "185476fab7660d6e36f6cad53f36aa6106ed9b60cc8f077b9e81079be584368e",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 530.4807011999999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "bb8ce3657b4511e09b4ac7c178eec72b8bbc920a59db945418b3de97ca753cdb",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 565.5684216,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "62bf81972547fbf5607b384f0c6575c28308e8116bc3da17b07ea9cdd5ca2876",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 600.6561407999999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "0c2825b8f8ef33cf4237ad82d88a61e3bc1eb57e457fef19e23de40a2828911a",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 634.1666667999999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "e76108aef61dda52f72ce102cbb0db862c9c0848b27b1b349b30e485a256a94b",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 667.2515465599998,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "7825d2b909330a4b8aff1a2e748c5cf572d8a6a6c2dc14551b8f1a608ec11467",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 700.2412371199998,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "84bdd3bf852b518e9775ccdb4d2bab4e22c037ada3a3947be27131e2cd7be72f",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 732.4810342849999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "b955534922c771df64e3ffdb9095f2b1bfabbd3ba373ea494cf78509e211e002",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 764.1186579199999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "7c1dcb624bd536b25f872538eb34b4f97c0fa46aab6b297fc96378095fd273f3",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 795.4619391199999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "1423b5d45ffb508aa956fe43daf57f0ddbeb4725c754aa99b6e93fe17d8d1442",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 826.8052228399999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "a271ac8fd65040f9b40148ec5c53998d49181c3587013ce590528ade67234eb3",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 858.14850656,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "9c83ec920d793c0a759f419ee51341c2a057a62218fe8a26b9b1aa9175f0c8c0",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 889.4917902799999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "ba38809112f074468b51e83322f9d4618cfe9adbc7df59300410ee1c9830ebf3",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 920.835074,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "a7a6c4900762188d6cfd2f5e53d72679df1f4b74b48186021756304557df14c1",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 951.6848835999999,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "547f54c2226624af8bf7a241fd152f17bd0f877423eb383e54ff1e3454ea190e",
+          "variables": 48,
+          "constraints": 65
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 981.91744232,
+        "best_bound": null
+      }
+    ],
+    "routing": [
+      {
+        "model": {
+          "sha256": "fa9d6af75a033b30e62516501f0ad85f1d6ead5fe7ce33181e1313f1ef64c68f",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "069e19cb0de9438577e1da3d08cb2982630337b95ae839384289d87dc62049c3",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 56.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "8431d05c6345631370a32d8987111af492586f010ac1c26b2d50e6d451218ea5",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 190.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "54076b009af65132ce79ef263bb1d5081aa1c3d01c164cbac109721f9aeea9e6",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 213.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "09e0a815adf9e71c7fdbafd0ae73c96105b861dcb816a826d6c41dce5177ea44",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 308.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "dbf6be051469552894ccc263ab9e7281634b3ca6f182fba0e0f0f0a419842ca0",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 363.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "e9b6f74f74d328ba302ef4851384a49631929455ed59e9fb65d8203ab2b7352a",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 477.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "60f19a086ee7c4485929c7bb8ee37cfbde7105d4459defd970e46cda431f168a",
+          "variables": 16,
+          "constraints": 23
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 500.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "6444cef192fa3f3ed0455bd99e19287115690c31bde3dc12e4ae2b2b3d151663",
+          "variables": 136,
+          "constraints": 17
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.0,
+        "best_bound": null
+      }
+    ],
+    "routing_v2_small": [
+      {
+        "model": {
+          "sha256": "c31f411d32b48edb0a4cfa7caa4485cb13d33678f6f9713613929e56c3a5fc56",
+          "variables": 156,
+          "constraints": 210
+        },
+        "constant": 552000.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 79249.22373000009,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "737b670ce633a34dcb00a61af937a1c3b58748969490e01ee6f3f1f6d0f4db4e",
+          "variables": 2,
+          "constraints": 4
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 0.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "51b276634054741f8ecf30fbeb13e87fb3d1fc02f41e5f5b634939269cd08a9a",
+          "variables": 6,
+          "constraints": 9
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 4.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "e584599bea75332e1b0351beaf6203c114a3f3c4b23f910a00e0349445fb8a80",
+          "variables": 6,
+          "constraints": 9
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 5.656854249492381,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "1374155866991f11dc061e0ca2cad8f9993d90abcf3c891fc3210fb59298280f",
+          "variables": 6,
+          "constraints": 9
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 8.0,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "511d220f7b1525e3bcdfaa8ba6e7e1b464b97cd390936976577bb88fb1a2cdd9",
+          "variables": 6,
+          "constraints": 9
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 8.94427190999916,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "bf05bfd752f36d1cbbf813c03f17a227aed34bef567797ece1a9ee9d7951fdc8",
+          "variables": 12,
+          "constraints": 16
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 6.82842712474619,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "67523f58aa333885bb07f8219d6adcb4eb3ffeab4e5b6e276edece3572f98c54",
+          "variables": 12,
+          "constraints": 16
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "d241e2ac8f4305e948bb92e9bb966bb6fa4e83cb8c8b92c6d70be80cd78111a2",
+          "variables": 12,
+          "constraints": 16
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "596f24019e865e01868cbe05d0787055d4cfdd92cd7746b5567a96afdfb56d0e",
+          "variables": 12,
+          "constraints": 16
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "835e867938f92ccf326ee3f559340dfd1161ada2ba906da35f25997266f8d6df",
+          "variables": 12,
+          "constraints": 16
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "f3b25630f1f6b8d71284c341a664da88fd82a99ffabc91b0c467a708a5b28981",
+          "variables": 12,
+          "constraints": 16
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 10.47213595499958,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "fd428556dfa61ff2b1cc320186d7a9798f6afc928c62b248f32cb445aec4798b",
+          "variables": 20,
+          "constraints": 25
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "7b854b1231e1e04742fe2d85b80cec271bcef9781f46b05614aad58eeb97c1e6",
+          "variables": 20,
+          "constraints": 25
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "d08b64f5093effca65c96f3217cde25d73626bcfeb4892a4356e6b910d5e35ff",
+          "variables": 20,
+          "constraints": 25
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "cb8510b0ed5782c9f1f9ebfbb5692bc44017bd5a5a363dfbe5c91709f8f2272c",
+          "variables": 20,
+          "constraints": 25
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "aa65d10a04a6607855f38e1510591b76eebf4c4d98d1ee6492f62bcfadebc1fc",
+          "variables": 30,
+          "constraints": 36
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "9f4e28a34018962c9c8b492d5357c89249736e369c0f14e98b217a1057b85db0",
+          "variables": 32,
+          "constraints": 12
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 79282.29685711069,
+        "best_bound": null
+      }
+    ],
+    "routing_v2_tsp": [
+      {
+        "model": {
+          "sha256": "391e368055155365beeb16ed06ed1be6c036e9f11b3a67f7ef36046bc4e59e1f",
+          "variables": 20,
+          "constraints": 25
+        },
+        "constant": 0.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": true,
+        "gap_limited": false,
+        "objective": 8.145373915498993,
+        "best_bound": null
+      },
+      {
+        "model": {
+          "sha256": "dcce215693a7b9a0758a90c892a3026ebcd6b4d696297a4fec428731660febcd",
+          "variables": 56,
+          "constraints": 64
+        },
+        "constant": 0.0,
+        "status": "Infeasible",
+        "has_solution": false,
+        "optimal": false,
+        "gap_limited": false,
+        "objective": null,
+        "best_bound": null
+      }
+    ],
+    "routing_v2_large": [
+      {
+        "model": {
+          "sha256": "c7abc54c5366f47c8006cfe75c6426ec395fd12e99aafb564acdddf09b3d2fbd",
+          "variables": 4220,
+          "constraints": 6307
+        },
+        "constant": 4742600.0,
+        "status": "Optimal",
+        "has_solution": true,
+        "optimal": false,
+        "gap_limited": true,
+        "objective": 1292824.21251,
+        "best_bound": 1094039.628
+      }
+    ]
+  }
+}
