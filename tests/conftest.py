@@ -14,4 +14,5 @@ def cbc_path(monkeypatch):
     path = os.environ.get('PYOPTBOOK_CBC_PATH')
     if path:
         monkeypatch.setattr(pulp.COIN_CMD, 'defaultPath', lambda self: path)
-        monkeypatch.setattr(pulp.LpSolverDefault, 'path', path)
+        if pulp.LpSolverDefault is not None:
+            monkeypatch.setattr(pulp.LpSolverDefault, 'path', path)

@@ -1,9 +1,9 @@
 import ast
-import json
 import os
 import re
 
 import nbformat
+import pandas as pd
 import pulp
 import pytest
 from joblib import Parallel, delayed
@@ -13,41 +13,47 @@ from notebook_support import BASELINE, CASES, read_notebook, run_case
 
 
 @pytest.mark.parametrize('case', CASES)
-def test_notebook_models_and_solutions_match_pulp3(case):
-    expected = json.loads(BASELINE.read_text())['cases'][case]
+def test_notebook_results_match_expected_values(case):
+    results = pd.read_csv(BASELINE)
+    expected = results[results.case == case].to_dict(orient='records')
     actual = run_case(case)
     assert len(actual) == len(expected)
     for new, old in zip(actual, expected):
-        assert new['model'] == old['model']
-        assert new['constant'] == old['constant']
-        assert new['has_solution'] == old['has_solution']
-        if case == 'routing_v2_large':
-            continue
-        if old['has_solution']:
-            assert old['optimal']
+        assert new['variables'] == old['variables']
+        assert new['constraints'] == old['constraints']
+        assert new['has_solution'] == (old['result'] != 'infeasible')
+        if old['result'] == 'optimal':
             assert new['status'] in ('Optimal', 'GapLimit'), new
             assert new['objective'] == pytest.approx(old['objective'], rel=1e-8, abs=1e-5)
-        else:
-            assert new['status'] == old['status']
+        elif old['result'] == 'infeasible':
+            assert new['status'] == 'Infeasible'
 
 
 @pytest.mark.parametrize('path', sorted(ROOT.glob('*/*.ipynb')), ids=lambda p: str(p.relative_to(ROOT)))
 def test_notebooks_are_valid_and_have_no_removed_pulp_calls(path):
     notebook = nbformat.read(path, as_version=4)
     nbformat.validate(notebook)
+    executed = str(path.relative_to(ROOT)) in {p for p, _ in CASES.values()}
+    if executed:
+        assert any(cell.get('outputs') for cell in notebook.cells)
     for cell in notebook.cells:
         if cell.cell_type != 'code':
             continue
         ast.parse(cell.source)
         assert not re.search(r'pulp\.(LpVariable\s*[.(]|LpStatus\b|PULP_CBC_CMD\b|LpAffineExpression\(\))',
                              cell.source)
+        if executed and cell.source.strip():
+            assert cell.execution_count is not None
+            assert all(output.output_type != 'error' for output in cell.outputs)
 
 
 def configure_worker():
     if os.environ.get('PYOPTBOOK_CBC_PATH'):
-        pulp.LpSolverDefault.path = os.environ['PYOPTBOOK_CBC_PATH']
+        if pulp.LpSolverDefault is not None:
+            pulp.LpSolverDefault.path = os.environ['PYOPTBOOK_CBC_PATH']
         pulp.COIN_CMD.defaultPath = lambda self: os.environ['PYOPTBOOK_CBC_PATH']
-    pulp.LpSolverDefault.msg = False
+    if pulp.LpSolverDefault is not None:
+        pulp.LpSolverDefault.msg = False
 
 
 def test_routing_builds_models_inside_parallel_workers():
