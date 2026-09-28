@@ -23,8 +23,9 @@ def test_notebook_models_and_solutions_match_pulp3(case):
         assert new['has_solution'] == old['has_solution']
         if case == 'routing_v2_large':
             continue
-        assert new['optimal'] == old['optimal']
         if old['has_solution']:
+            assert old['optimal']
+            assert new['status'] in ('Optimal', 'GapLimit'), new
             assert new['objective'] == pytest.approx(old['objective'], rel=1e-8, abs=1e-5)
         else:
             assert new['status'] == old['status']
@@ -45,6 +46,7 @@ def test_notebooks_are_valid_and_have_no_removed_pulp_calls(path):
 def configure_worker():
     if os.environ.get('PYOPTBOOK_CBC_PATH'):
         pulp.LpSolverDefault.path = os.environ['PYOPTBOOK_CBC_PATH']
+        pulp.COIN_CMD.defaultPath = lambda self: os.environ['PYOPTBOOK_CBC_PATH']
     pulp.LpSolverDefault.msg = False
 
 

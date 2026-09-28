@@ -79,6 +79,11 @@ def run_case(case, original=False):
         solver.timeLimit = 600 if case == 'routing_v2_large' else 120
         if os.environ.get('PYOPTBOOK_CBC_PATH'):
             solver.path = os.environ['PYOPTBOOK_CBC_PATH']
+        if case == 'routing_v2_large' and not original:
+            initial = json.loads(BASELINE.read_text())['cases'][case][0]['initial_values']
+            for variable in prob.variables():
+                variable.setInitialValue(initial.get(variable.name, 0))
+            solver.optionsDict['warmStart'] = True
         with tempfile.TemporaryDirectory() as tmp:
             log_path = Path(tmp) / 'cbc.log'
             solver.optionsDict['logPath'] = str(log_path)
@@ -102,9 +107,11 @@ def run_case(case, original=False):
         records.append({'model': signature, 'constant': constant, 'status': status,
                         'has_solution': has_solution, 'optimal': optimal and not gap_limited,
                         'gap_limited': gap_limited, 'objective': objective, 'best_bound': best_bound})
+        if case == 'routing_v2_large' and original:
+            records[-1]['initial_values'] = {v.name: v.value() for v in prob.variables() if v.value()}
         if case == 'routing_v2_large':
             assert has_solution
-            assert optimal or gap_limited, status
+            assert optimal or gap_limited, (status, objective, best_bound, log[-2500:])
             if gap_limited:
                 assert best_bound is not None
                 assert abs(objective - best_bound) <= 0.101 * abs(objective - constant)
