@@ -52,7 +52,7 @@ python -m pip install -r requirements-test.txt
 python -m pytest -q
 ```
 
-CI は Python 3.12 / 3.13 で、`v3.0` ブランチの元コードと移行後のコードの両方を実行する。4.0 側では PuLP の非推奨警告をエラーにする。
+CI は Ubuntu・macOS・Windows の Python 3.12 / 3.13 で、`v3.0` ブランチの元コードと移行後のコードの両方を実行する。4.0 側では PuLP の非推奨警告をエラーにする。macOS の CI は [Homebrew の CBC](https://formulae.brew.sh/formula/cbc) を `brew install cbc` で導入し、`PYOPTBOOK_CBC_PATH` に実行ファイルを指定する。
 
 ローカルの macOS arm64 では `cbcbox 2.935` の CBC 実行が終了コード -9 で失敗したため、比較には両環境で同じ CBC 2.10.3 実行ファイルを指定した。テストだけでソルバーを固定する場合は `PYOPTBOOK_CBC_PATH=/path/to/cbc python -m pytest -q` を使う。実装の CBC 選択は変更しない。別の CBC を使うアプリケーションでは `pulp.COIN_CMD(path='/path/to/cbc')` を指定できる。CBC の違いによっても複数解の選択は変わり得る。
 

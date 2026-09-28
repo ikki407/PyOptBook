@@ -64,11 +64,11 @@ requirements は手編集せず、`scripts/export_requirements.py` で4ファイ
 
 ## 検証と注意点
 
-CI は Python 3.12 / 3.13 で、uv のロックから導入する経路と生成した requirements を pip で導入する経路の両方で回帰テストを実行する。旧版の第6章 + PuLP 3.3.2 の回帰テストも残す。比較用グループは追加導入と主要モジュールの import を確認し、python-mip / CVXPY 自体の全出力比較は対象外とする。
+CI は Ubuntu・macOS・Windows × Python 3.12 / 3.13 × uv / pip の12通りで回帰テストを実行する。旧版の第6章 + PuLP 3.3.2 の回帰テストと、比較用グループの追加導入・主要モジュールの import も3 OS で確認する。python-mip / CVXPY 自体の全出力比較は対象外とする。同じブランチの更新が重なった場合は古い実行を中止し、各 OS の成否は独立して確認する。
 
 CBC の環境固有の実行問題と数値比較の範囲は [第6章のメモ](pulp-v4-migration.md)と[他章のメモ](pulp-v4-notebooks.md)を参照。依存の固定で複数最適解の選択まで保証するものではない。
 
-macOS arm64 の `cbcbox 2.935` では、配布された `libgfortran`・`libquadmath`・`libgcc_s` のコード署名検査が失敗し、CBC が終了コード -9 になることを確認した。本体の数理モデルとは別の配布物の問題である。検証には独立した CBC 実行ファイルを指定している。必要に応じて利用可能な CBC を `COIN_CMD(path=...)` で指定する。グローバル環境や OS のセキュリティ設定は変更しない。
+macOS arm64 の `cbcbox 2.935` では、配布された `libgfortran`・`libquadmath`・`libgcc_s` のコード署名検査が失敗し、CBC が終了コード -9 になることを確認した。本体の数理モデルとは別の配布物の問題である。macOS の CI は Homebrew の CBC を導入し、`PYOPTBOOK_CBC_PATH` で指定する。アプリケーションでは利用可能な CBC を `COIN_CMD(path=...)` で指定できる。OS のセキュリティ設定は変更しない。
 
 ## 書籍に記載する候補
 

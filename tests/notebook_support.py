@@ -32,7 +32,7 @@ CASES = {
 
 
 def read_notebook(path):
-    return json.loads((ROOT / path).read_text())
+    return json.loads((ROOT / path).read_text(encoding='utf-8'))
 
 
 def check_solution(prob):
@@ -82,10 +82,12 @@ def run_case(case):
             for variable in prob.variables():
                 variable.setInitialValue(initial.get(variable.name, 0))
             solver.optionsDict['warmStart'] = True
+            solver.keepFiles = True
         with tempfile.TemporaryDirectory() as tmp:
             log_path = Path(tmp) / 'cbc.log'
             solver.optionsDict['logPath'] = str(log_path)
-            result = solve(prob, solver, **kwargs)
+            with contextlib.chdir(tmp):
+                result = solve(prob, solver, **kwargs)
             log = log_path.read_text()
         has_solution = result.has_solution
         optimal = result.status == pulp.LpSolveStatus.Optimal

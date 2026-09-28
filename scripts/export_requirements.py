@@ -28,10 +28,10 @@ def main():
         content = '# Generated from uv.lock: python scripts/export_requirements.py\n' + result.stdout
         path = ROOT / name
         if args.check:
-            if not path.exists() or path.read_text() != content:
+            if not path.exists() or path.read_text(encoding='utf-8') != content:
                 stale.append(name)
         else:
-            path.write_text(content)
+            path.write_text(content, encoding='utf-8')
     if stale:
         print('Regenerate requirements: ' + ', '.join(stale), file=sys.stderr)
         return 1
