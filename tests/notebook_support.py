@@ -69,7 +69,7 @@ def run_case(case, original=False):
     namespace = {'__name__': '__main__'}
 
     def checked_solve(prob, solver=None, **kwargs):
-        signature = model_signature(prob)
+        signature = model_signature(prob, significant_digits=12)
         signature.pop('objective')
         constant = float(prob.objective.constant) if prob.objective is not None else 0.0
         if solver is None:

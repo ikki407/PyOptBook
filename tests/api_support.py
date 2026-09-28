@@ -14,21 +14,27 @@ def sample_data():
     return pd.read_csv(RESOURCE / 'students.csv'), pd.read_csv(RESOURCE / 'cars.csv')
 
 
-def model_signature(prob):
+def model_signature(prob, significant_digits=None):
     data = prob.toDict()
 
+    def number(value):
+        if value is None:
+            return None
+        if significant_digits is None:
+            return float(value)
+        return float(format(value, f'.{significant_digits}g'))
+
     def terms(coefficients):
-        return sorted((c['name'], float(c['value'])) for c in coefficients
+        return sorted((c['name'], number(c['value'])) for c in coefficients
                       if c['name'] != '__dummy' and c['value'] != 0)
 
     variables = sorted(
         (v['name'], v['cat'],
-         None if v['lowBound'] is None else float(v['lowBound']),
-         None if v['upBound'] is None else float(v['upBound']))
+         number(v['lowBound']), number(v['upBound']))
         for v in data['variables'] if v['name'] != '__dummy'
     )
     constraints = sorted(
-        (c['sense'], float(c['constant']), terms(c['coefficients']))
+        (c['sense'], number(c['constant']), terms(c['coefficients']))
         for c in data['constraints']
     )
     model = {
