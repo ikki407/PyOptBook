@@ -2,7 +2,7 @@ name: PuLP 4 regression tests
 
 on:
   push:
-    branches: [v4.0, codex/v4.0-notebooks]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 defaults:
