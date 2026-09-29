@@ -64,7 +64,7 @@ requirements は手編集せず、`scripts/export_requirements.py` で4ファイ
 
 ## 検証と注意点
 
-CI は Ubuntu・macOS・Windows × Python 3.12 / 3.13 × uv / pip の12通りで回帰テストを実行する。旧版の第6章 + PuLP 3.3.2 の回帰テストと、比較用グループの追加導入・主要モジュールの import も3 OS で確認する。python-mip / CVXPY 自体の全出力比較は対象外とする。同じブランチの更新が重なった場合は古い実行を中止し、各 OS の成否は独立して確認する。
+CI は Ubuntu・macOS・Windows × Python 3.12 / 3.13 × uv / pip の12通りで回帰テストを実行する。旧版の第6章 + PuLP 3.3.2 の回帰テストと、比較用グループの追加導入・主要モジュールの import も3 OS で確認する。python-mip / CVXPY 自体の全出力比較は対象外とする。PR の更新と `main` への push で起動し、手動実行とは分ける。同じ PR の更新が重なった場合は古い実行を中止し、各 OS の成否は独立して確認する。
 
 CBC の環境固有の実行問題と数値比較の範囲は [第6章のメモ](pulp-v4-migration.md)と[他章のメモ](pulp-v4-notebooks.md)を参照。依存の固定で複数最適解の選択まで保証するものではない。
 
