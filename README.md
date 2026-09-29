@@ -29,10 +29,38 @@
 
 ## 利用上の注意
 
-- このブランチは PuLP 4.0 に対応しています。Python 3.12 以上の環境で `pip install -r requirements.txt` を実行してください。第6章のみの場合は `pip install -r 6.api/requirements.txt` を使用できます。[移行内容と書籍の補足候補](docs/pulp-v4-migration.md)、[他章の検証内容](docs/pulp-v4-notebooks.md)を参照してください。
+- このブランチは PuLP 4.0 と uv に対応しています。移行版の対応 Python は 3.12 / 3.13 です。[移行内容と書籍の補足候補](docs/pulp-v4-migration.md)、[他章の検証内容](docs/pulp-v4-notebooks.md)、[uv の利用方法](docs/uv-migration.md)を参照してください。
 - 本書に掲載されている情報は、2021年9月現在のものです。
 - ライブラリのバージョンアップなどによって動作しなくなることがありますのでご注意ください。
   - 第7章で利用するライブラリCVXOPTのインストールがM1チップ搭載Macにて特別な方法でインストールが必要との報告を受けています( [#16](https://github.com/ohmsha/PyOptBook/issues/16) )。
+
+## 移行版の環境構築
+
+[uv をインストール](https://docs.astral.sh/uv/getting-started/installation/)した後、リポジトリのルートで実行します。Python の系列は `.python-version`、ライブラリのバージョンは `uv.lock` に従って準備されます。
+
+```sh
+uv sync --locked
+uv run --locked jupyter notebook
+```
+
+第6章のサンプルを実行する場合:
+
+```sh
+cd 6.api
+uv run --locked python problem.py
+```
+
+uv を使わない場合も `requirements.txt` を利用できます。Python 3.12 または 3.13 を用意してから、次のように仮想環境を作成してください。
+
+```sh
+python -m venv .venv-pip
+. .venv-pip/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Windows の有効化コマンドは `.venv-pip\Scripts\activate` です。第6章のみの場合は `python -m pip install -r 6.api/requirements.txt`、python-mip / CVXPY の比較版も使う場合は `python -m pip install -r requirements-alternatives.txt` を使用できます。すべての requirements ファイルは `uv.lock` から生成しています。
+
+開発・回帰テストはルートで `uv run --locked pytest -q` を実行します。依存関係の更新方法と章別の導入方法は [uv 移行メモ](docs/uv-migration.md)に記載しています。
 
 ## 正誤表
 - [初版の正誤表はこちらのリンク](正誤表.md)をご覧ください。

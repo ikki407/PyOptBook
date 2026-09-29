@@ -23,7 +23,7 @@ env:
   OMP_NUM_THREADS: '1'
 
 jobs:
-  api:
+  regression:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     strategy:
@@ -31,7 +31,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python: ['3.12', '3.13']
-        pulp: ['3.3.2', '4.0.0']
+        installer: [uv, pip]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,10 +39,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-          cache: pip
-          cache-dependency-path: |
-            6.api/requirements.txt
-            requirements-test.txt
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: '0.9.7'
+          enable-cache: true
       - name: Install CBC on macOS
         if: runner.os == 'macOS'
         env:
@@ -50,11 +50,56 @@ jobs:
         run: |
           brew install cbc
           echo "PYOPTBOOK_CBC_PATH=$(brew --prefix cbc)/bin/cbc" >> "$GITHUB_ENV"
-      - run: python -m pip install -r requirements-test.txt
-      - if: matrix.pulp == '3.3.2'
+      - run: uv lock --check
+      - run: python scripts/export_requirements.py --check
+      - if: matrix.installer == 'uv'
         run: |
+          uv sync --locked --python ${{ matrix.python }}
+          uv run --locked --python ${{ matrix.python }} pytest -q
+      - if: matrix.installer == 'pip'
+        run: |
+          python -m pip install -r requirements-test.txt
+          python -m pytest -q
+
+  legacy-api:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CBC on macOS
+        if: runner.os == 'macOS'
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: '1'
+        run: |
+          brew install cbc
+          echo "PYOPTBOOK_CBC_PATH=$(brew --prefix cbc)/bin/cbc" >> "$GITHUB_ENV"
+      - run: |
+          python -m pip install -r requirements-test.txt
           python -m pip install pulp==3.3.2
           git show origin/v3.0:6.api/problem.py > 6.api/problem.py
           python -m pytest -q -o filterwarnings=default tests/test_api.py
-      - if: matrix.pulp == '4.0.0'
-        run: python -m pytest -q
+
+  alternatives:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: '0.9.7'
+          enable-cache: true
+      - run: uv sync --locked --group alternatives
+      - run: uv run --locked --group alternatives python -c "import cvxopt, cvxpy, mip, scipy"
