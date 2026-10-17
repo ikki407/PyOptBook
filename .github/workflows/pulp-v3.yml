@@ -1,0 +1,60 @@
+name: PuLP 3.2.2 compatibility tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: '1'
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONFAULTHANDLER: '1'
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+
+jobs:
+  compatibility:
+    name: compatibility (${{ matrix.os }}, Python 3.9)
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-15-intel, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          architecture: x64
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            tests/requirements.txt
+      - name: Install the README environment and test dependencies
+        run: python -m pip install -r tests/requirements.txt
+      - name: Check installed dependencies
+        run: |
+          python -m pip check
+          python -m pip list
+      - name: Check native solvers
+        run: python -X faulthandler -c "import cvxpy, mip, scipy; print(cvxpy.installed_solvers())"
+      - name: Run API and all notebook tests
+        run: python -m pytest -v tests --basetemp=.test-results --junitxml=.test-results/junit.xml
+      - name: Save executed notebooks and test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.os }}
+          path: .test-results/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 14
