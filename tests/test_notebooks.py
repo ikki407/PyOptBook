@@ -8,7 +8,8 @@ from nbclient import NotebookClient
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOKS = sorted(ROOT.glob('*/*.ipynb'))
+NOTEBOOKS = sorted(ROOT.glob('*/*.ipynb'),
+                   key=lambda path: (path.parent.name == '5.routing', path.as_posix()))
 
 
 @pytest.mark.parametrize('path', NOTEBOOKS, ids=lambda p: p.relative_to(ROOT).as_posix())
