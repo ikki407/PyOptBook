@@ -5,10 +5,12 @@ def solve_with_coupon_gap(problem, solver=None, _solve=pulp.LpProblem.solve, **k
     pulp.LpProblem.solve = _solve
     assert len(problem.variables()) == 15000
     assert len(problem.constraints) == 5049
-    # Notebook の注記にある gapRel を使い、同じ目的値と制約充足を検証する。
-    result = _solve(problem, solver or pulp.PULP_CBC_CMD(gapRel=1e-3), **kwargs)
+    # Notebook の注記にある gapRel を使い、乱数シードを固定する。
+    solver = solver or pulp.PULP_CBC_CMD(gapRel=1e-3, options=['randomSeed 1'])
+    result = _solve(problem, solver, **kwargs)
     assert result == pulp.LpStatusOptimal
-    assert abs(pulp.value(problem.objective) - 326.09) <= 1e-5
+    objective = pulp.value(problem.objective)
+    assert abs(objective - 326.09) <= 1e-5, objective
     for variable in problem.variables():
         value = variable.value()
         assert value is not None
