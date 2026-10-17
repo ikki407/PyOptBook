@@ -30,6 +30,7 @@ traitlets==5.9.0
 Jinja2==3.0.3
 Werkzeug==2.0.3
 osqp==0.6.3
+qdldl==0.1.7.post0
 ecos==2.0.10
 scs==3.2.2
 setuptools==65.5.1

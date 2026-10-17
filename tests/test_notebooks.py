@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -11,7 +12,9 @@ NOTEBOOKS = sorted(ROOT.glob('*/*.ipynb'))
 
 
 @pytest.mark.parametrize('path', NOTEBOOKS, ids=lambda p: p.relative_to(ROOT).as_posix())
-def test_all_notebook_cells(path, tmp_path, capsys):
+def test_all_notebook_cells(path, tmp_path_factory, capsys):
+    output = tmp_path_factory.getbasetemp() / 'notebooks' / path.relative_to(ROOT)
+    output.parent.mkdir(parents=True, exist_ok=True)
     notebook = nbformat.read(path, as_version=4)
     nbformat.validate(notebook)
     for cell in notebook.cells:
@@ -24,9 +27,13 @@ def test_all_notebook_cells(path, tmp_path, capsys):
     client.km = client.create_kernel_manager()
     client.km.kernel_spec.argv = [sys.executable, '-m', 'ipykernel_launcher',
                                   '-f', '{connection_file}']
+    if path.parent.name == '4.coupon':
+        setup = json.dumps([str(ROOT / 'tests' / 'coupon_solver.py')])
+        client.km.kernel_spec.argv.append(f'--IPKernelApp.exec_files={setup}')
 
     def report_cell(cell, cell_index, **kwargs):
         if cell.cell_type == 'code' and cell.source.strip():
+            nbformat.write(notebook, output)
             with capsys.disabled():
                 print(f'{path.relative_to(ROOT)}: cell {cell_index}', flush=True)
 
@@ -34,7 +41,7 @@ def test_all_notebook_cells(path, tmp_path, capsys):
     try:
         client.execute()
     finally:
-        nbformat.write(notebook, tmp_path / path.name)
+        nbformat.write(notebook, output)
     for cell in notebook.cells:
         if cell.cell_type == 'code' and cell.source.strip():
             assert cell.execution_count is not None
