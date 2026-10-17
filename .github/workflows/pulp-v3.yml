@@ -16,6 +16,7 @@ concurrency:
 env:
   PYTHONUTF8: '1'
   PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONFAULTHANDLER: '1'
   OPENBLAS_NUM_THREADS: '1'
   OMP_NUM_THREADS: '1'
 
@@ -44,6 +45,8 @@ jobs:
         run: |
           python -m pip check
           python -m pip list
+      - name: Check native solvers
+        run: python -X faulthandler -c "import cvxpy, mip, scipy; print(cvxpy.installed_solvers())"
       - name: Run API and all notebook tests
         run: python -m pytest -v tests --basetemp=.test-results --junitxml=.test-results/junit.xml
       - name: Save executed notebooks and test results
