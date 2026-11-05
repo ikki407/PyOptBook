@@ -2,7 +2,7 @@
 
 `ikki407/PyOptBook` の `main` 宛てに、第2・3・4・5・6章を章別の PR で移行する。共通の依存関係とテスト基盤を先に取り込み、その後は各章を独立してレビューする。第5章は初版と第2版を同じ PR にまとめる。第7章は PuLP を使っていないためコードの変更対象に含めない。
 
-元の移行コードは `ikki407/PyOptBook` の PR #1・#2 にあり、章別の PR ではその最終状態を引き継ぐ。uv への移行は別作業とする。
+元の移行コードは `ikki407/PyOptBook` の PR #1・#2 にあり、章別の PR ではその最終状態を基にレビューを反映する。uv への移行は別作業とする。
 
 ## 共通する変更と書籍への補足候補
 
@@ -12,7 +12,7 @@
 | 変数の生成 | 問題を作成してから `prob.add_variable(...)` / `prob.add_variable_dicts(...)` を呼ぶ。変数を異なる問題へ使い回さない。 |
 | 求解と結果の表示 | `solve()` は `LpSolveStats` を返す。表示には `stats.status_str`、実行可能解の有無には `stats.has_solution` を使う。 |
 | 最適性の判定 | `stats.status == pulp.LpSolveStatus.Optimal` と比較する。`GapLimit` や `TimeLimit` で得た解と区別する。 |
-| CBC の指定 | 廃止された `PULP_CBC_CMD` を `COIN_CMD` に変更する。厳密な最適解を求める例では `gapRel=0, gapAbs=0` を明示する。 |
+| CBC の指定 | 基本は引数なしの `problem.solve()` を使う。`msg` や `gapRel` などのオプションが必要な場合のみ `pulp.COIN_CMD(...)` を渡す。従来の `PULP_CBC_CMD` は `COIN_CMD` に変更する。 |
 | 制約の参照 | `prob.constraints()` はリストを返す。名前で取得する場合は `prob.get_constraint_by_name(name)` を使う。本書の移行対象コードに直接の変更箇所はない。 |
 | 出力例 | 複数最適解の割当・経路、許容ギャップで終了する例の目的値、計算時間は環境により変わる。 |
 
