@@ -2,9 +2,9 @@
 
 ## 変更内容
 
-`6.api/problem.py` の変数生成を `prob.add_variable_dicts(...)` に変更し、`pulp.COIN_CMD()` で求解する。`stats.has_solution` が偽の場合はステータスを含む `ValueError` を返し、不正な割当を出力しない。時間制限でも実行可能解があれば利用する。
+`6.api/problem.py` の変数生成を `prob.add_variable_dicts(...)` に変更し、求解は従来どおり引数なしの `solve()` を使う。`stats.has_solution` が偽の場合はステータスを含む `ValueError` を返し、不正な割当を出力しない。時間制限でも実行可能解があれば利用する。
 
-既存 PR #1 の第6章コード・専用 requirements・回帰テストをそのまま引き継ぐ。学生・車の集合、変数名、制約、通常の DataFrame / CSV / JSON の列名・型と既存の説明コメントは維持する。例外の HTTP 応答は既存フレームワークの処理に委ねる。車 ID は従来どおり行順に対応する0始まりの連番を前提とする。
+学生・車の集合、変数名、制約、通常の DataFrame / CSV / JSON の列名・型と既存の説明コメントは維持する。例外の HTTP 応答は既存フレームワークの処理に委ねる。車 ID は従来どおり行順に対応する0始まりの連番を前提とする。
 
 第6章だけを実行する場合は、Python 3.12 以上で次のように導入する。
 
@@ -28,7 +28,7 @@ python -m pytest -q tests/test_api.py
 ## 書籍への修正候補
 
 - `CarGroupProblem._formulate` の変数定義を、問題に所属する変数を生成する形式に更新する。
-- `CarGroupProblem.solve` に `LpSolveStats` の取得と `has_solution` の確認を掲載する。
+- `CarGroupProblem.solve` に、引数なしの `solve()` による `LpSolveStats` の取得と `has_solution` の確認を掲載する。
 - 目的関数のない実行可能性問題では、条件を満たす割当が複数あることを出力例に補足する。
 - 第6章の導入手順に Python 3.12 以上、PuLP 4.0、CBC の導入方法を記載する。
 

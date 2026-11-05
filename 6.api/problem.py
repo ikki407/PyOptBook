@@ -72,7 +72,7 @@ class CarGroupProblem():
     def solve(self):
         # 最適化問題を解くメソッド
         # 問題を解く
-        stats = self.prob['prob'].solve(pulp.COIN_CMD())
+        stats = self.prob['prob'].solve()
         if not stats.has_solution:
             raise ValueError(f'実行可能解が得られませんでした: {stats.status_str}')
 
